@@ -64,14 +64,19 @@ export class AppComponent {
       }
     })
 
-    let start = + new Date(this.dateGroup.value.accountStartDate)
-    let end = + new Date(this.dateGroup.value.accountEndDate)
-    
-    this.transactions = allTransactions
-    this.transactions = this.transactions.filter((transaction: any)=>{ 
-      let value_date = + new Date(transaction.value_date)
-      return value_date >= start && value_date <= end
-    })
+    if(this.dateGroup.value.accountStartDate == "" || this.dateGroup.value.accountEndDate == ""){
+      this.transactions = allTransactions
+    }
+    else {
+      let start = + new Date(this.dateGroup.value.accountStartDate)
+      let end = + new Date(this.dateGroup.value.accountEndDate)
+      
+      this.transactions = allTransactions
+      this.transactions = this.transactions.filter((transaction: any)=>{ 
+        let value_date = + new Date(transaction.value_date)
+        return value_date >= start && value_date <= end
+      })
+    }
   }
 
   selectAll(e: any){
